@@ -6,15 +6,23 @@
 ## in R or RStudio.
 Azure <- FALSE
 
+## in R studio, change the working directory if necessary
+## getwd()
+## setwd("/Users/user/Workspace/Azure-ML-Bike-Demand-Forecast")
+## getwd()
+
 ## If we are in Azure, source the utilities from the zip
 ## file. The next lines of code read in the dataset, either 
 ## in Azure ML or from a csv file for testing purposes.
+## when zip the source file, DO NOT put it in a src directory
+## Azure will unzip it and put it in its src directory
 if(Azure){
   source("src/utilities.R")
   BikeShare <- maml.mapInputPort(1)
   BikeShare$dteday <- set.asPOSIXct(BikeShare)
 }else{
-  BikeShare <- read.csv("BikeSharing.csv", sep = ",", 
+  source("utilities.r")
+  BikeShare <- read.csv("Bike_Rental.csv", sep = ",", 
                         header = T, stringsAsFactors = F )
   BikeShare$dteday <- char.toPOSIXct(BikeShare)
 }
