@@ -30,18 +30,21 @@ char.toPOSIXct <-   function(inFrame) {
 ## in R or RStudio.
 Azure <- FALSE
 
+## getwd()
+## setwd("/Users/user/Workspace/Azure-ML-Bike-Demand-Forecast")
+## getwd()
+
 ## Set the dteday column to a POSIXct type if in Azure ML
 ## or bind the data to the dataset name.
 if(Azure){
   dataset$dteday <- set.asPOSIXct(dataset)
 }else{
-  dataset <- read.csv("BikeSharing.csv", sep = ",", 
+  dataset <- read.csv("Bike_Rental.csv", sep = ",", 
                         header = T, stringsAsFactors = F )
   dataset$dteday <- char.toPOSIXct(dataset)
 }
 
 require(randomForest)
-model <- randomForest(cnt ~ xformWorkHr + dteday +
-                        temp + hum, 
-                      data = dataset, ntree = 40, 
-                      nodesize = 5)
+model <- randomForest(cnt ~ dteday + mnth + hr + 
+                        workingday + temp + weathersit, 
+                      data = dataset)

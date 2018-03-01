@@ -36,7 +36,7 @@ if(Azure){
   BikeShare <- dataset
   BikeShare$dteday <- set.asPOSIXct(BikeShare)
 }else{
-  BikeShare <- read.csv("BikeSharing.csv", sep = ",", 
+  BikeShare <- read.csv("Bike_Rental.csv", sep = ",", 
                       header = T, stringsAsFactors = F )
   BikeShare$dteday <- char.toPOSIXct(BikeShare)
 }
